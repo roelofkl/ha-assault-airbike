@@ -1,0 +1,38 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Assault AirBike",
+        "description": "Bluetooth address of the bike (shown in nRF Connect).",
+        "data": {"address": "Bluetooth address"}
+      },
+      "confirm": {"description": "Set up {name}?"}
+    },
+    "abort": {"already_configured": "This bike is already set up."}
+  },
+  "entity": {
+    "sensor": {
+      "speed": {"name": "Speed"},
+      "cadence": {"name": "Cadence"},
+      "power": {"name": "Power"},
+      "ride_distance": {"name": "Ride distance"},
+      "ride_calories": {"name": "Ride calories"},
+      "ride_time": {"name": "Ride time"},
+      "time_remaining": {"name": "Time remaining"},
+      "bike_state": {"name": "State"},
+      "last_ride_end": {"name": "Last ride"},
+      "last_ride_duration": {"name": "Last ride duration"},
+      "last_ride_distance": {"name": "Last ride distance"},
+      "last_ride_calories": {"name": "Last ride calories"},
+      "last_ride_avg_power": {"name": "Last ride average power"},
+      "last_ride_max_power": {"name": "Last ride max power"},
+      "last_ride_max_speed": {"name": "Last ride max speed"},
+      "last_ride_avg_cadence": {"name": "Last ride average cadence"},
+      "total_distance": {"name": "Total distance"},
+      "total_calories": {"name": "Total calories"}
+    },
+    "binary_sensor": {"connected": {"name": "Connected"}},
+    "switch": {"auto_connect": {"name": "Auto-connect"}}
+  }
+}
