@@ -23,7 +23,7 @@ Live ride data from an **Assault AirBike** console in Home Assistant, over Bluet
 ### HACS (recommended)
 
 1. In HACS, open the ⋮ menu → **Custom repositories**.
-2. Add `https://github.com/GITHUB_USER/ha-assault-airbike` with category **Integration**.
+2. Add `https://github.com/roelofkl/ha-assault-airbike` with category **Integration**.
 3. Install **Assault AirBike (unofficial)** and restart Home Assistant.
 
 ### Manual

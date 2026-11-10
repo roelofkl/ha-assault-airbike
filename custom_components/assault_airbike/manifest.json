@@ -4,13 +4,13 @@
   "bluetooth": [
     {"local_name": "Assault AirBike*", "connectable": true}
   ],
-  "codeowners": ["@GITHUB_USER"],
+  "codeowners": ["@roelofkl"],
   "config_flow": true,
   "dependencies": ["bluetooth_adapters"],
-  "documentation": "https://github.com/GITHUB_USER/ha-assault-airbike",
+  "documentation": "https://github.com/roelofkl/ha-assault-airbike",
   "integration_type": "device",
   "iot_class": "local_push",
-  "issue_tracker": "https://github.com/GITHUB_USER/ha-assault-airbike/issues",
+  "issue_tracker": "https://github.com/roelofkl/ha-assault-airbike/issues",
   "requirements": [],
   "version": "0.2.0"
 }
