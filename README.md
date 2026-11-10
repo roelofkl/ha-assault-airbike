@@ -90,6 +90,7 @@ A notification can open the Shortcut with the URL `shortcuts://run-shortcut?name
 - The console sends whole metres and whole calories, so figures can differ slightly from the decimals on the display.
 - If Home Assistant connects partway through a ride, totals are complete but averages only cover the connected part.
 - Protocol details are in [docs/PROTOCOL.md](docs/PROTOCOL.md).
+- A ready-made phone-friendly dashboard view is in [docs/DASHBOARD.md](docs/DASHBOARD.md).
 
 ## Reporting other models and programmes
 

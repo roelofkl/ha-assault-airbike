@@ -1,0 +1,185 @@
+title: AirBike
+path: airbike
+icon: mdi:bike
+type: sections
+max_columns: 3
+sections:
+- type: grid
+  cards:
+  - type: heading
+    heading: Live
+  - type: markdown
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state_not: 'on'
+    content: |-
+      **🚲 Bike not connected**
+      Press the **Bluetooth** button on the console to start live data.{% set a = states.sensor.airbike_last_ride %}{% if a and a.state not in ['unknown','unavailable'] %}
+
+      Last ride {{ as_timestamp(a.state) | timestamp_custom('%a %-d %b, %-I:%M %p') }}: {{ (a.attributes.duration_s/60)|round(0)|int }} min · {{ a.attributes.distance_km }} km · {{ a.attributes.kcal }} kcal{% endif %}
+  - type: markdown
+    content: |-
+      {% set r = states('sensor.airbike_time_remaining') %}{% set e = states('sensor.airbike_ride_time') %}{% if r not in ['unknown','unavailable','none',''] %}{% set v = r|int %}{% set lbl = 'Time remaining' %}{% else %}{% set v = e|int(0) %}{% set lbl = 'Time elapsed' %}{% endif %}
+      **⏱️ {{ lbl }}**
+      ## {{ '%d:%02d' % (v // 60, v % 60) }}
+    grid_options:
+      columns: 6
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: markdown
+    content: |-
+      **🔥 Calories**
+      ## {{ states('sensor.airbike_ride_calories') | int(0) }} kcal
+    grid_options:
+      columns: 6
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: gauge
+    entity: sensor.airbike_cadence
+    name: RPM (target 52)
+    min: 22
+    max: 82
+    needle: true
+    segments:
+    - from: 22
+      color: '#db4437'
+    - from: 37
+      color: '#ff9800'
+    - from: 47
+      color: '#43a047'
+    - from: 57
+      color: '#ff9800'
+    - from: 67
+      color: '#db4437'
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: gauge
+    entity: sensor.airbike_power
+    name: Power
+    min: 0
+    max: 1000
+    needle: true
+    severity:
+      green: 0
+      yellow: 400
+      red: 700
+    grid_options:
+      columns: 6
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: gauge
+    entity: sensor.airbike_speed
+    name: Speed
+    min: 0
+    max: 60
+    needle: true
+    severity:
+      green: 0
+      yellow: 35
+      red: 48
+    grid_options:
+      columns: 6
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: markdown
+    grid_options:
+      columns: 6
+    content: |-
+      **🕑 Time**
+      ### {% set v = states('sensor.airbike_ride_time')|int(0) %}{{ '%d:%02d' % (v // 60, v % 60) }}
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: markdown
+    grid_options:
+      columns: 6
+    content: |-
+      **↔️ Distance**
+      ### {{ '%.1f' % (states('sensor.airbike_ride_distance')|float(0) / 1000) }} km
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: tile
+    entity: sensor.airbike_state
+    name: State
+    visibility:
+    - condition: state
+      entity: binary_sensor.airbike_connected
+      state: 'on'
+  - type: tile
+    entity: binary_sensor.airbike_connected
+    name: Connected
+  - type: tile
+    entity: switch.airbike_auto_connect
+    name: Auto-connect
+    tap_action:
+      action: toggle
+- type: grid
+  cards:
+  - type: heading
+    heading: This ride
+  - type: history-graph
+    title: Power and cadence (last 30 min)
+    hours_to_show: 0.5
+    entities:
+    - entity: sensor.airbike_power
+      name: Power
+    - entity: sensor.airbike_cadence
+      name: Cadence
+  - type: history-graph
+    title: Speed (last 30 min)
+    hours_to_show: 0.5
+    entities:
+    - entity: sensor.airbike_speed
+      name: Speed
+  visibility:
+  - condition: state
+    entity: binary_sensor.airbike_connected
+    state: 'on'
+- type: grid
+  cards:
+  - type: heading
+    heading: Last ride
+  - type: tile
+    entity: sensor.airbike_last_ride
+    name: Finished
+  - type: tile
+    entity: sensor.airbike_last_ride_duration
+    name: Duration
+  - type: tile
+    entity: sensor.airbike_last_ride_distance
+    name: Distance
+  - type: tile
+    entity: sensor.airbike_last_ride_calories
+    name: Calories
+  - type: tile
+    entity: sensor.airbike_last_ride_average_power
+    name: Avg power
+  - type: tile
+    entity: sensor.airbike_last_ride_max_power
+    name: Max power
+  - type: tile
+    entity: sensor.airbike_last_ride_max_speed
+    name: Max speed
+  - type: tile
+    entity: sensor.airbike_last_ride_average_cadence
+    name: Avg cadence
+  - type: tile
+    entity: sensor.airbike_total_distance
+    name: Total distance
+  - type: tile
+    entity: sensor.airbike_total_calories
+    name: Total calories
